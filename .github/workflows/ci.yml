@@ -1,0 +1,49 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Restore formatter and check XML formatting
+        run: |
+          dotnet tool restore
+          dotnet csharpier check .
+      - name: Build Debug and Release
+        run: |
+          dotnet build MySharp.csproj -c Debug --disable-build-servers
+          dotnet build MySharp.csproj -c Release --disable-build-servers
+      - name: Run headless framework and formatter tests
+        run: dotnet run --project tests/MySharp.Tests -c Release --disable-build-servers
+      - name: Pack libraries (no NuGet publish)
+        run: |
+          dotnet pack src/MySharp -c Release -o artifacts/packages
+          dotnet pack src/MySharp.Desktop -c Release -o artifacts/packages
+          dotnet pack src/MySharp.HotReload -c Release -o artifacts/packages
+      - uses: actions/upload-artifact@v7
+        with:
+          name: preview-packages
+          path: artifacts/packages/*.*nupkg
+  hot-reload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Install native smoke dependencies
+        run: sudo apt-get update && sudo apt-get install -y xvfb libfontconfig1 libx11-6 libx11-xcb1 libxcb1 libice6 libsm6 fonts-dejavu-core
+      - name: Verify real native Hot Reload
+        run: python3 scripts/hot-reload-smoke.py
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: hot-reload-evidence
+          path: artifacts/hot-reload-*

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>SunDoge.MySharp.Desktop</PackageId>
+    <Description>Desktop host, window APIs and default theme for MySharp.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MySharp/MySharp.csproj" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.4" />
+  </ItemGroup>
+</Project>

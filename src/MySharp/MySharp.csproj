@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>SunDoge.MySharp</PackageId>
+    <Description>Pure C# retained UI composition for Avalonia, without XAML or source generators.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.4" />
+    <PackageReference Include="Lucide.Avalonia" Version="0.2.26" />
+  </ItemGroup>
+</Project>

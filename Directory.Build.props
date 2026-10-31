@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.1.0-preview.1</Version>
+    <IsPackable>false</IsPackable>
+    <Authors>SunDoge</Authors>
+    <RepositoryUrl>https://github.com/SunDoge/MySharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/SunDoge/MySharp</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>avalonia;csharp;gui;desktop;code-first</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <None
+      Include="$(MSBuildThisFileDirectory)docs/NUGET-README.md"
+      Pack="true"
+      PackagePath="README.md"
+    />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildThisFileDirectory)NOTICE" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildThisFileDirectory)THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildThisFileDirectory)licenses/*.txt" Pack="true" PackagePath="licenses/" />
+  </ItemGroup>
+</Project>

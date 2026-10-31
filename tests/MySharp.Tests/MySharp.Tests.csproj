@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/MySharp/MySharp.csproj" />
+    <ProjectReference Include="../../src/MySharp.HotReload/MySharp.HotReload.csproj" />
+    <ProjectReference Include="../../MySharp.csproj" />
+    <ProjectReference Include="../../tools/MySharp.Format/MySharp.Format.csproj" />
+    <PackageReference Include="Avalonia.Headless" Version="12.1.4" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,23 @@
+**/bin/
+**/obj/
+/artifacts/
+/dist/
+*.nupkg
+*.snupkg
+*.nettrace
+*.nettrace.etlx
+*.user
+*.suo
+*.log
+core
+core.*
+.vs/
+.idea/
+.env
+.env.*
+__pycache__/
+*.pyc
+
+# Local screenshots and measurement snapshots; regenerate with scripts/.
+/docs/images/
+/docs/evidence/

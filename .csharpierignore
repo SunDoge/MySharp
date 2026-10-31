@@ -1,0 +1,7 @@
+# CSharpier handles project/XML files; C# keeps MySharp's compact formatter.
+**/*.cs
+**/*.csx
+**/bin/
+**/obj/
+artifacts/
+dist/

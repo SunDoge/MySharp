@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>MySharp.Workspace</AssemblyName>
+    <PackageId>MySharp.Workspace</PackageId>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="examples/Workspace/*.cs" />
+    <ProjectReference Include="src/MySharp.Desktop/MySharp.Desktop.csproj" />
+    <ProjectReference
+      Include="src/MySharp.HotReload/MySharp.HotReload.csproj"
+      Condition="'$(Configuration)' == 'Debug'"
+    />
+  </ItemGroup>
+</Project>
