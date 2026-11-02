@@ -17,15 +17,25 @@ public sealed partial class MySharpTheme : Styles
     {
         Resources.ThemeDictionaries[ThemeVariant.Light] = Palette(false);
         Resources.ThemeDictionaries[ThemeVariant.Dark] = Palette(true);
+        // Explicit UI fallbacks avoid picking an arbitrary editor/monospace font
+        // for CJK when only the Latin family is specified.
+        Resources["MySharpFontFamily"] = new FontFamily("fonts:Inter#Inter, PingFang SC, Microsoft YaHei UI, Noto Sans CJK SC, Noto Sans CJK JP");
         Resources["ControlCornerRadius"] = new CornerRadius(6);
         Resources["OverlayCornerRadius"] = new CornerRadius(8);
-        Resources["ButtonPadding"] = new Thickness(12, 7);
-        Resources["TextControlThemePadding"] = new Thickness(10, 7);
-        Resources["TextControlThemeMinHeight"] = 36d;
+        Resources["ButtonPadding"] = new Thickness(12, 6);
+        Resources["TextControlThemePadding"] = new Thickness(10, 6);
+        Resources["TextControlThemeMinHeight"] = 34d;
         Resources["TextControlBorderThemeThickness"] = new Thickness(1);
         Resources["TextControlBorderThemeThicknessFocused"] = new Thickness(1);
         Resources["ButtonBorderThemeThickness"] = new Thickness(1);
-        Add(new Style(x => x.OfType<Window>()) { Setters = { new Setter(TemplatedControl.FontSizeProperty, 14d) } });
+        Add(new Style(x => x.OfType<Window>())
+        {
+            Setters =
+            {
+                new Setter(TemplatedControl.FontSizeProperty, 14d),
+                new Setter(TemplatedControl.FontFamilyProperty, new DynamicResourceExtension("MySharpFontFamily"))
+            }
+        });
         Add(new Style(x => x.OfType<Button>())
         {
             Setters =
@@ -33,7 +43,8 @@ public sealed partial class MySharpTheme : Styles
                 new Setter(Layoutable.MinHeightProperty, 34d),
                 new Setter(TemplatedControl.FontWeightProperty, FontWeight.Normal),
                 new Setter(TemplatedControl.CornerRadiusProperty, new CornerRadius(6)),
-                new Setter(TemplatedControl.PaddingProperty, new Thickness(12, 7))
+                new Setter(TemplatedControl.PaddingProperty, new Thickness(12, 6)),
+                new Setter(ContentControl.VerticalContentAlignmentProperty, VerticalAlignment.Center)
             }
         });
         Add(new Style(x => x.OfType<Button>().Class("quiet"))
@@ -103,11 +114,12 @@ public sealed partial class MySharpTheme : Styles
                 new Setter(TemplatedControl.BackgroundProperty, new DynamicResourceExtension("TextControlBackground")),
                 new Setter(TemplatedControl.ForegroundProperty, new DynamicResourceExtension("TextControlForeground")),
                 new Setter(TemplatedControl.CornerRadiusProperty, new CornerRadius(6)),
-                new Setter(TemplatedControl.PaddingProperty, new Thickness(10, 7)),
-                new Setter(Layoutable.MinHeightProperty, 36d)
+                new Setter(TemplatedControl.PaddingProperty, new Thickness(10, 6)),
+                new Setter(Layoutable.MinHeightProperty, 34d)
             }
         });
         ConfigureControls();
+        ConfigureSegments();
     }
 
     public static FluentTheme CreateFluentBase()

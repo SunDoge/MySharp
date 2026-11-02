@@ -15,7 +15,7 @@ internal static class Program
         MySharpApp.Run(workspace.Build, new WindowOptions
         {
             Chrome = customChrome ? WindowChrome.Custom : WindowChrome.System,
-            Title = "MySharp · Studio", Width = 1120, Height = 820, MinWidth = 960, MinHeight = 680,
+            Title = "MySharp · Gallery", Width = 1120, Height = 820, MinWidth = 960, MinHeight = 680,
             Theme = dark ? Avalonia.Styling.ThemeVariant.Dark : Avalonia.Styling.ThemeVariant.Light
         }, args);
     }
@@ -57,7 +57,7 @@ public sealed partial class Workspace(string initialPage = "overview", bool cust
         {
             Ui.Grid(cx, "*,Auto").Cell(0, 0).TitleBar().Background(Surface).Padding(12, 4).Children(() =>
             {
-                Ui.Text(cx, "MySharp · Studio").FontSize(13).Bold().Label("Window title");
+                Ui.Text(cx, "MySharp · Gallery").FontSize(13).Bold().Label("Window title");
                 Ui.WindowControls(cx);
             });
             Shell(cx).Cell(1, 0);
@@ -69,33 +69,38 @@ public sealed partial class Workspace(string initialPage = "overview", bool cust
     {
         return Ui.Grid(cx, "216,*").Fill().Background(PageBackground).Children(() =>
         {
-            Ui.Column(cx).Gap(6).Padding(20, 28).Background(Surface).Children(() =>
+            Ui.Grid(cx, "*").Rows("*,Auto").Fill().Background(Surface).Children(() =>
             {
-                Ui.Text(cx, "m / studio").FontSize(23).Bold().TextColor(Ink);
-                Ui.Text(cx, workspaceName).Wrap().FontSize(12).TextColor(Muted);
-                Ui.Space(cx, 28);
-                cx.Scope(() => Navigation(cx, "overview", "Overview", Icons.Home));
-                cx.Scope(() => Navigation(cx, "tasks", "Tasks", Icons.Tasks));
-                cx.Scope(() => Navigation(cx, "settings", "Settings", Icons.Settings));
-                cx.Scope(() => Navigation(cx, "lab", "State & tasks", Icons.Activity));
-                cx.Scope(() => Navigation(cx, "controls", "Components", Icons.Components));
-                Ui.Space(cx, 32);
-                Ui.Text(cx, "WORKSPACE").FontSize(10).TextColor(Muted);
-                Ui.Text(cx, "MySharp").FontSize(13).TextColor(Ink).Padding(10);
-                Ui.Text(cx, "MyGo").FontSize(13).TextColor(Ink).Padding(10);
-                Ui.Text(cx, "Design notes").FontSize(13).TextColor(Ink).Padding(10);
-                Ui.Space(cx, 170);
-                Ui.Column(cx).Gap(5).Padding(10).Children(() =>
+                Ui.Scroll(cx).Cell(0, 0).Fill().Children(() =>
+                {
+                    Ui.Column(cx).Gap(6).Padding(20, 28).Children(() =>
+                    {
+                        Ui.Text(cx, "MySharp").FontSize(23).Bold().TextColor(Ink);
+                        Ui.Text(cx, workspaceName).Wrap().FontSize(12).TextColor(Muted);
+                        Ui.Space(cx, 28);
+                        cx.Scope(() => Navigation(cx, "overview", "Overview", Icons.Home));
+                        cx.Scope(() => Navigation(cx, "tasks", "Tasks", Icons.Tasks));
+                        cx.Scope(() => Navigation(cx, "settings", "Settings", Icons.Settings));
+                        cx.Scope(() => Navigation(cx, "lab", "State & tasks", Icons.Activity));
+                        cx.Scope(() => Navigation(cx, "controls", "Components", Icons.Components));
+                        Ui.Space(cx, 32);
+                        Ui.Text(cx, "Workspace").FontSize(12).TextColor(Muted);
+                        Ui.Text(cx, "MySharp").FontSize(13).TextColor(Ink).Padding(10);
+                        Ui.Text(cx, "MyGo").FontSize(13).TextColor(Ink).Padding(10);
+                        Ui.Text(cx, "Design notes").FontSize(13).TextColor(Ink).Padding(10);
+                    });
+                });
+                Ui.Column(cx).Cell(1, 0).Gap(5).Padding(30, 20).Children(() =>
                 {
                     Ui.Text(cx, displayName).Wrap().FontSize(13).Bold().TextColor(Ink);
-                    Ui.Text(cx, "Local workspace · Demo").FontSize(11).TextColor(Muted);
+                    Ui.Text(cx, "Local workspace · Demo").Wrap().FontSize(12).TextColor(Muted);
                 });
             });
             Ui.Scroll(cx).Fill().Children(() =>
             {
                 Ui.Column(cx).Gap(22).Padding(36, 28).Children(() =>
                 {
-                    Ui.Text(cx, $"Studio  /  {page}").FontSize(12).TextColor(Muted);
+                    Ui.Text(cx, $"Gallery  /  {page}").FontSize(12).TextColor(Muted);
                     switch (page)
                     {
                         case "tasks": cx.Scope(() => TasksPage(cx)); break;
@@ -121,7 +126,7 @@ public sealed partial class Workspace(string initialPage = "overview", bool cust
     {
         Ui.Column(cx).Gap(8).Children(() =>
         {
-            Ui.Text(cx, title).FontSize(28).Bold().TextColor(Ink);
+            Ui.Text(cx, title).FontSize(24).Bold().TextColor(Ink);
             Ui.Text(cx, subtitle).FontSize(13).TextColor(Muted);
         });
     }

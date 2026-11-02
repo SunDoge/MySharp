@@ -41,7 +41,7 @@ internal static class ThemeTests
             window.Show(); Pump();
             Assert(ColorIs(normal!.Background, "#F4F4F5"), $"Neutral button palette must replace default Fluent gray; got {normal.Background}.");
             Assert(ColorIs(primary!.GetVisualDescendants().OfType<ContentPresenter>().First(p => p.Name == "PART_ContentPresenter").Background, "#2563EB"), "Accent palette must replace default Fluent cyan.");
-            Assert(normal.CornerRadius.TopLeft == 6 && normal.Padding.Left == 12 && input!.MinHeight == 36, "Shared control metrics apply.");
+            Assert(normal.CornerRadius.TopLeft == 6 && normal.Padding.Left == 12 && input!.MinHeight == 34, "Shared control metrics apply.");
             Assert(quiet!.Background is ISolidColorBrush transparent && transparent.Color.A == 0 && quiet.MinHeight == 30, "Quiet tools have no persistent button face.");
             var item = list!.GetVisualDescendants().OfType<ListBoxItem>().First(i => i.IsSelected);
             var presenter = item.GetVisualDescendants().OfType<ContentPresenter>().First(p => p.Name == "PART_ContentPresenter");

@@ -51,7 +51,7 @@ internal static class WorkspaceInputTests
         {
             window.Show(); Pump();
             Navigate("Tasks", false);
-            Assert(view.GetLogicalDescendants().OfType<TextBlock>().Any(t => t.Text == "Make room for the next step."), "Edge click must navigate to Tasks.");
+            Assert(view.GetLogicalDescendants().OfType<TextBlock>().Any(t => t.Text == "Tasks"), "Edge click must navigate to Tasks.");
             var task = Find<CheckBox>(c => Equals(c.Content, "Build the component gallery"));
             var indicator = task.GetVisualDescendants().OfType<Border>().Single(c => c.Name == "NormalRectangle");
             var label = task.GetVisualDescendants().OfType<ContentPresenter>().Single(c => c.Name == "PART_ContentPresenter");
@@ -65,6 +65,13 @@ internal static class WorkspaceInputTests
             Navigate("Settings", true);
             Assert(view.GetLogicalDescendants().OfType<TextBox>().Any(t => t.Text == "Alex Chen"), "Bottom edge click must navigate to Settings.");
             Navigate("Overview", false);
+            window.Width = 960; window.Height = 680; Pump();
+            var footer = Find<TextBlock>(t => t.Text == "Local workspace · Demo");
+            var footerBottom = footer.TranslatePoint(new Point(0, footer.Bounds.Height), window)!.Value.Y;
+            Assert(footerBottom <= window.ClientSize.Height - 16, "Sidebar profile must remain inside the minimum window instead of following a fixed spacer offscreen.");
+            Navigate("Components", true);
+            Assert(view.GetLogicalDescendants().OfType<TextBlock>().Any(t => t.Text == "Components"), "Minimum window must retain the last navigation hit target.");
+
         }
         finally { window.Close(); app.Styles.Remove(theme); app.Styles.Remove(fluent); }
     }

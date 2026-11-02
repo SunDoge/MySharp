@@ -131,12 +131,13 @@ public readonly partial struct Element
         if (node.Inner is not TextBlock) throw new InvalidOperationException("Wrap requires Text.");
         return Set(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
     }
-    public Element Bold()
+    public Element Bold() => Weight(FontWeight.SemiBold);
+    public Element Weight(FontWeight value)
     {
         var node = Node;
-        if (node.Inner is TextBlock) return Set(TextBlock.FontWeightProperty, FontWeight.SemiBold);
-        if (node.Inner is Avalonia.Controls.Primitives.TemplatedControl) return Set(Avalonia.Controls.Primitives.TemplatedControl.FontWeightProperty, FontWeight.SemiBold);
-        throw new InvalidOperationException("Bold requires text or an input control.");
+        if (node.Inner is TextBlock) return Set(TextBlock.FontWeightProperty, value);
+        if (node.Inner is Avalonia.Controls.Primitives.TemplatedControl) return Set(Avalonia.Controls.Primitives.TemplatedControl.FontWeightProperty, value);
+        throw new InvalidOperationException("Weight requires text or an input control.");
     }
     public Element TextColor(string color)
     {

@@ -17,6 +17,12 @@ public sealed partial class MySharpTheme
 {
     private void ConfigureControls()
     {
+        Resources["ExpanderMinHeight"] = 36d;
+        Resources["ExpanderHeaderBorderThickness"] = new Thickness(0);
+        Resources["TabItemHeaderFontSize"] = 14d;
+        Resources["TabItemHeaderThemeFontWeight"] = FontWeight.Normal;
+        Resources["TabItemHeaderMargin"] = new Thickness(12, 8);
+        Resources["TabItemMinHeight"] = 34d;
         Resources["CheckBoxBorderThemeThickness"] = new Thickness(1);
         Resources["RadioButtonBorderThemeThickness"] = 1d;
         Resources["TextControlPlaceholderOpacity"] = 1d;
@@ -56,7 +62,11 @@ public sealed partial class MySharpTheme
         });
         Add(new Style(x => x.OfType<PopupRoot>())
         {
-            Setters = { new Setter(TopLevel.TransparencyBackgroundFallbackProperty, new DynamicResourceExtension("MySharpBackground")) }
+            Setters =
+            {
+                new Setter(TopLevel.TransparencyBackgroundFallbackProperty, new DynamicResourceExtension("MySharpBackground")),
+                new Setter(TemplatedControl.FontFamilyProperty, new DynamicResourceExtension("MySharpFontFamily"))
+            }
         });
         Add(new Style(x => x.OfType<CheckBox>())
         {
@@ -113,6 +123,25 @@ public sealed partial class MySharpTheme
                 new Setter(TemplatedControl.PaddingProperty, new Thickness(10, 7)),
                 new Setter(TemplatedControl.CornerRadiusProperty, new CornerRadius(4)),
                 new Setter(Layoutable.MinHeightProperty, 32d)
+            }
+        });
+        Add(new Style(x => x.OfType<Expander>())
+        {
+            Setters =
+            {
+                new Setter(Layoutable.HorizontalAlignmentProperty, HorizontalAlignment.Stretch),
+                new Setter(ContentControl.HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch),
+                new Setter(TemplatedControl.BorderThicknessProperty, new Thickness(0))
+            }
+        });
+        Add(new Style(x => x.OfType<Expander>().Template().OfType<ToggleButton>())
+        {
+            Setters =
+            {
+                new Setter(Layoutable.HorizontalAlignmentProperty, HorizontalAlignment.Stretch),
+                new Setter(Layoutable.MinHeightProperty, 36d),
+                new Setter(TemplatedControl.PaddingProperty, new Thickness(8)),
+                new Setter(TemplatedControl.BorderThicknessProperty, new Thickness(0))
             }
         });
         Add(new Style(x => x.OfType<ProgressBar>())
@@ -176,10 +205,15 @@ public sealed partial class MySharpTheme
         string accent = dark ? "#3B82F6" : "#2563EB";
         string selection = dark ? "#253552" : "#EAF0FF", selectionText = dark ? "#93C5FD" : "#1D4ED8";
         void Put(string key, string value) => d[key] = new ImmutableSolidColorBrush(Color.Parse(value));
+        Put("ExpanderContentBackground", background);
+        Put("ExpanderContentBorderBrush", border);
+        Put("TabItemHeaderSelectedPipeFill", accent);
         Put("MySharpText", text);
         Put("MySharpTextMuted", muted);
         Put("MySharpBackground", background);
         Put("MySharpSurface", surface);
+        Put("MySharpSurfaceHover", hover);
+        Put("MySharpSegmentSelection", dark ? "#3F3F46" : "#FFFFFF");
         Put("MySharpBorder", border);
         Put("MySharpAccent", accent);
         Put("MySharpTrack", border);
@@ -262,6 +296,22 @@ public sealed partial class MySharpTheme
                 Put("ComboBoxItemBackground" + selected + state, selected != "" && !disabled ? selection : state == "" || disabled ? "#00000000" : face);
                 Put("ComboBoxItemForeground" + selected + state, selected != "" && !disabled ? selectionText : ink);
                 Put("ComboBoxItemBorderBrush" + selected + state, "#00000000");
+            }
+            Put("ExpanderHeaderBackground" + state, state == "" || disabled ? background : face);
+            Put("ExpanderHeaderBorderBrush" + state, "#00000000");
+            Put("ExpanderHeaderForeground" + state, ink);
+            Put("ExpanderChevronBackground" + state, "#00000000");
+            Put("ExpanderChevronBorderBrush" + state, "#00000000");
+            Put("ExpanderChevronForeground" + state, muted);
+            if (disabled)
+            {
+                Put("TabItemHeaderBackgroundDisabled", "#00000000");
+                Put("TabItemHeaderForegroundDisabled", muted);
+            }
+            else foreach (var selectedTab in new[] { "Unselected", "Selected" })
+            {
+                Put("TabItemHeaderBackground" + selectedTab + state, state == "" ? "#00000000" : face);
+                Put("TabItemHeaderForeground" + selectedTab + state, selectedTab == "Selected" ? text : muted);
             }
             Put("MenuFlyoutItemBackground" + state, state == "" || disabled ? "#00000000" : face);
             Put("MenuFlyoutItemForeground" + state, ink);

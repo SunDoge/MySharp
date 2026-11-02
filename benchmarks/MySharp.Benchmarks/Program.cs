@@ -111,9 +111,20 @@ using (var view = new UiView(cx => Ui.Column(cx).Fill().Children(stableLabels, s
     });
     window.Close();
 }
+{
+    var items = new[] { "Original", "Translated", "Both" };
+    using var view = new UiView(cx => Ui.Segmented(cx, items, 0, static _ => { }));
+    var window = new Window { Width = 400, Height = 160, Content = view };
+    window.Show(); Dispatcher.UIThread.RunJobs(); window.UpdateLayout();
+    Measure("segmented: unchanged declaration + layout", () =>
+    {
+        view.Rebuild(); Dispatcher.UIThread.RunJobs(); window.UpdateLayout();
+    });
+    window.Close();
+}
 var output = JsonSerializer.Serialize(new
 {
-    environment = "Release; .NET 10; Avalonia.Headless + Fluent + Inter; pages 1120x820, lists 800x500, static labels 300x600; at least 500 warmups over 2s then 7 batches of 200 operations",
+    environment = "Release; .NET 10; Avalonia.Headless + MySharpTheme + Inter; pages 1120x820, lists 800x500, static labels 300x600; at least 500 warmups over 2s then 7 batches of 200 operations",
     limitation = "Includes declaration/reconciliation, queued UI work and layout. Excludes native compositor, GPU rendering and real input latency. Allocations are UI-thread managed allocations, not retained memory.",
     results,
     scale
@@ -124,5 +135,9 @@ File.WriteAllText("artifacts/runtime-rebuild.json", output + "\n");
 
 sealed class BenchmarkApp : Application
 {
-    public override void Initialize() => Styles.Add(new FluentTheme());
+    public override void Initialize()
+    {
+        Styles.Add(MySharpTheme.CreateFluentBase());
+        Styles.Add(new MySharpTheme());
+    }
 }

@@ -5,7 +5,7 @@ public sealed partial class Workspace
     [Component]
     private void SettingsPage(UiContext cx)
     {
-        cx.Scope(() => Heading(cx, "Make yourself at home.", "A few preferences for your local workspace."));
+        cx.Scope(() => Heading(cx, "Settings", "A few preferences for your local workspace."));
         Ui.Text(cx, "Profile").FontSize(19).Bold().TextColor(Ink);
         Ui.Column(cx).Gap(12).Padding(20).Border(1, Line).Radius(8).Children(() =>
         {
@@ -13,7 +13,7 @@ public sealed partial class Workspace
             Ui.TextInput(cx, draftName, value => { draftName = value; savedMessage = ""; }).Placeholder("Your name").Label("Display name");
             Ui.Text(cx, "Workspace name").FontSize(12).Bold().TextColor(Ink);
             Ui.TextInput(cx, draftWorkspace, value => { draftWorkspace = value; savedMessage = ""; }).Placeholder("Workspace name").Label("Workspace name");
-            Ui.Text(cx, "Shown in the sidebar. These values are kept for this session only.").FontSize(11)
+            Ui.Text(cx, "Shown in the sidebar. These values are kept for this session only.").FontSize(12)
                 .TextColor(Muted);
         });
         Ui.Text(cx, "Preferences").FontSize(19).Bold().TextColor(Ink);
@@ -40,7 +40,7 @@ public sealed partial class Workspace
             Ui.Text(cx, "About this demo").FontSize(14).Bold().TextColor(Ink);
             Ui.Text(cx, $"MySharp · C# + Avalonia · Activity section: {(showActivity ? "on" : "off")}").FontSize(12)
                 .TextColor(Muted);
-            Ui.Text(cx, "Local sample data. Your changes last until you close the app.").FontSize(11).TextColor(Muted);
+            Ui.Text(cx, "Local sample data. Your changes last until you close the app.").FontSize(12).TextColor(Muted);
         });
     }
 

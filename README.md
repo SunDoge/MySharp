@@ -164,6 +164,8 @@ Ui.Button(cx, "Settings").Icon(Icons.Settings);
 Ui.IconButton(cx, Icons.Trash, "Delete task");
 ```
 
+单选分段控件可用 `Ui.Segmented(cx, items, selectedIndex)`，其中 `selectedIndex` 为 `State<int>`；也可传入索引和回调。`Weight(FontWeight.Medium)` 可以表达较轻的小标题层级。
+
 纯图标按钮要求提供可访问名称，并自动用作 tooltip。完整图标枚举为 `Lucide.Avalonia.LucideIconKind`。[主题与图标说明](docs/THEME.md)。
 
 示例现在有五个页面，可在侧栏切换，状态由应用持有：
@@ -178,7 +180,7 @@ Ui.IconButton(cx, Icons.Trash, "Delete task");
 
 `bash scripts/screenshot.sh` 会拍摄全部五个页面和自定义标题栏，截图位于 `artifacts/overview.png`、`artifacts/tasks.png`、`artifacts/settings.png`、`artifacts/lab.png`、`artifacts/controls.png`、`artifacts/controls-dark.png`、`artifacts/custom-chrome.png`；`artifacts/gui.png` 为概览副本。图形桌面用 `dotnet run`，无桌面时脚本使用 Xvfb。
 
-当前测试覆盖自动身份/数值 key 域、16 字节句柄/代数回绕/GC、保留节点/焦点/属性通知、state/task race 与生命周期、原生控件/事件、窗口/模态/closing、布局附加属性和示例页面。当前框架行为测试为 79 项。运行脚本生成的完整日志位于本地 `artifacts/`，不提交构建产物；可运行 `scripts/` 中的脚本生成测量结果，能力矩阵列出尚未验证部分。
+当前测试覆盖自动身份/数值 key 域、16 字节句柄/代数回绕/GC、保留节点/焦点/属性通知、state/task race 与生命周期、原生控件/事件、窗口/模态/closing、布局附加属性和示例页面。当前框架行为测试为 82 项。运行脚本生成的完整日志位于本地 `artifacts/`，不提交构建产物；可运行 `scripts/` 中的脚本生成测量结果，能力矩阵列出尚未验证部分。
 
 ## 紧凑 formatter
 
@@ -356,3 +358,7 @@ cog check
 提交类型包括 `feat`、`fix`、`perf`、`refactor`、`test`、`docs`、`build`、`ci` 和 `chore`。
 克隆仓库后安装 commit-msg hook，即可校验普通 `git commit` 的消息。
 图片、测量快照和构建产物仅保留在本地，可用 `scripts/` 重新生成。
+
+### Shader prototypes
+
+独立的 [Shader lab](examples/ShaderLab/README.md) 验证了 shader 背景、控件子树的灰度/波纹效果，以及效果下的原生按钮和输入交互。它不改变框架包的 API 或默认渲染路径；运行方式、原生像素验证和限制见示例说明。

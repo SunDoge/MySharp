@@ -11,6 +11,7 @@ internal static class Program
     [STAThread]
     private static void Main(string[] args)
     {
+        if (args.Length == 2 && args[0] == "--typography") { TypographySmoke.Run(args[1]); return; }
         UiContext? primary = null;
         var picker = args.Contains("--picker");
         Console.WriteLine($"Native smoke start; picker={picker}");

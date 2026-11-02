@@ -5,7 +5,7 @@ public sealed partial class Workspace
     [Component]
     private void TasksPage(UiContext cx)
     {
-        cx.Scope(() => Heading(cx, "Make room for the next step.", "A short list for the work that matters. Changes stay in this session."));
+        cx.Scope(() => Heading(cx, "Tasks", "A short list for the work that matters. Changes stay in this session."));
         Ui.Grid(cx, "*,Auto").Children(() =>
         {
             Ui.TextInput(cx, draft, value => draft = value).Placeholder("What would you like to work on?").Label("New task");
@@ -23,9 +23,9 @@ public sealed partial class Workspace
         });
         Ui.Grid(cx, "*,120,100").Padding(16, 0).Children(() =>
         {
-            Ui.Text(cx, "TASK").FontSize(10).TextColor(Muted);
-            Ui.Text(cx, "PROJECT").FontSize(10).TextColor(Muted);
-            Ui.Text(cx, "DUE").FontSize(10).TextColor(Muted);
+            Ui.Text(cx, "Task").FontSize(12).TextColor(Muted);
+            Ui.Text(cx, "Project").FontSize(12).TextColor(Muted);
+            Ui.Text(cx, "Due").FontSize(12).TextColor(Muted);
         });
         var visible = tasks.Where(t => filter == "All" || (filter == "Completed" ? t.Done : !t.Done)).ToArray();
         Ui.Column(cx).Gap(10).Children(() =>
@@ -45,7 +45,7 @@ public sealed partial class Workspace
         });
         Ui.Column(cx).Gap(8).Padding(20).Background(Surface).Radius(8).Children(() =>
         {
-            Ui.Text(cx, "One thing at a time.").FontSize(15).Bold().TextColor(Ink);
+            Ui.Text(cx, "Task controls").FontSize(15).Bold().TextColor(Ink);
             Ui.Text(cx, "Click a checkbox or its task name to mark it complete.").FontSize(12).TextColor(Muted);
         });
     }
@@ -53,8 +53,8 @@ public sealed partial class Workspace
     [Component]
     private void FilterButton(UiContext cx, string value)
     {
-        Ui.Button(cx, value).Flat().Background(filter == value ? Selection : Surface).Radius(6)
-            .TextColor(filter == value ? Blue : Muted).OnClick(() => filter = value);
+        Ui.Button(cx, value).Class("quiet").Class("selected", filter == value)
+            .OnClick(() => filter = value);
     }
 
     [Component]

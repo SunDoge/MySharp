@@ -1115,6 +1115,9 @@ passed += AnimationTests.Run();
 passed += ThemeTests.Run();
 passed += WorkspaceInputTests.Run();
 passed += IconTests.Run();
+passed += SegmentedTests.Run();
+passed += ExpanderTests.Run();
+passed += CollectionTests.Run();
 passed += HotReloadTests.Run();
 Console.WriteLine($"{passed} tests passed.");
 

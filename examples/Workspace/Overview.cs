@@ -5,12 +5,12 @@ public sealed partial class Workspace
     [Component]
     private void OverviewPage(UiContext cx)
     {
-        cx.Scope(() => Heading(cx, "A little space to make things.", "Your projects, priorities and recent work in one place."));
+        cx.Scope(() => Heading(cx, "Overview", "Your projects, priorities and recent work in one place."));
         Ui.Grid(cx, "*,*,*").Children(() =>
         {
-            cx.Scope(() => Metric(cx, "PROJECTS", "03", "Two in active development"));
-            cx.Scope(() => Metric(cx, "OPEN TASKS", tasks.Count(t => !t.Done).ToString("D2"), "Keep the next step small"));
-            cx.Scope(() => Metric(cx, "COMPLETED", tasks.Count(t => t.Done).ToString("D2"), "Progress, one task at a time"));
+            cx.Scope(() => Metric(cx, "Projects", "03", "Two in active development"));
+            cx.Scope(() => Metric(cx, "Open tasks", tasks.Count(t => !t.Done).ToString("D2"), "Keep the next step small"));
+            cx.Scope(() => Metric(cx, "Completed", tasks.Count(t => t.Done).ToString("D2"), "Progress, one task at a time"));
         });
         Ui.Grid(cx, "*,150").Children(() =>
         {
@@ -20,9 +20,9 @@ public sealed partial class Workspace
         Ui.TextInput(cx, search, value => search = value).Placeholder("Search projects…").Label("Search projects");
         Ui.Grid(cx, "*,140,110").Padding(16, 0).Children(() =>
         {
-            Ui.Text(cx, "NAME").FontSize(10).TextColor(Muted);
-            Ui.Text(cx, "LANGUAGE").FontSize(10).TextColor(Muted);
-            Ui.Text(cx, "STATUS").FontSize(10).TextColor(Muted);
+            Ui.Text(cx, "Name").FontSize(12).TextColor(Muted);
+            Ui.Text(cx, "Language").FontSize(12).TextColor(Muted);
+            Ui.Text(cx, "Status").FontSize(12).TextColor(Muted);
         });
         var projects = new[]
         {
@@ -53,9 +53,9 @@ public sealed partial class Workspace
     {
         Ui.Column(cx).Gap(10).Padding(18).Margin(4).Border(1, Line).Radius(8).Children(() =>
         {
-            Ui.Text(cx, label).FontSize(10).TextColor(Muted);
+            Ui.Text(cx, label).FontSize(12).TextColor(Muted);
             Ui.Text(cx, value).FontSize(32).Bold().TextColor(Ink);
-            Ui.Text(cx, detail).FontSize(11).TextColor(Muted);
+            Ui.Text(cx, detail).FontSize(12).TextColor(Muted);
         });
     }
 
