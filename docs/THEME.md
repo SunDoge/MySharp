@@ -26,10 +26,9 @@ dotnet run -- --page=lab --dark
 bash scripts/screenshot.sh
 ```
 
-The screenshot script captures all five light pages, custom chrome, a dark lab and the dark component gallery.
+The screenshot script captures all seven light pages, custom chrome, a dark lab and the dark component gallery.
 Headless tests cover actual native template colors, control metrics, hover input dispatch,
-live Light/Dark switching and disabled text. The current framework checkpoint passes 82 tests and a
-zero-warning build. Native X11 screenshots are verified; older published/AOT binaries predate
+live Light/Dark switching and disabled text. The current framework checkpoint passes 102 tests. The build succeeds with existing nullable warnings in the Gallery/tests. Native X11 screenshots are verified; older published/AOT binaries predate
 this visual change and should be rebuilt to receive it. The benchmark host now installs
 the actual MySharp theme; runtime fixtures are described below.
 

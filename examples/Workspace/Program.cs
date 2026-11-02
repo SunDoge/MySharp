@@ -11,7 +11,9 @@ internal static class Program
         var page = args.FirstOrDefault(a => a.StartsWith("--page="))?.Split('=')[1] ?? "overview";
         var customChrome = args.Contains("--custom-chrome");
         var dark = args.Contains("--dark");
-        using var workspace = new Workspace(page, customChrome, dark);
+        var gameSavePath = args.Contains("--no-game-save") ? null : args.FirstOrDefault(a => a.StartsWith("--game-save="))?[12..]
+            ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MySharp", "Gallery", "2048.json");
+        using var workspace = new Workspace(page, customChrome, dark, gameSavePath, args.Contains("--reduced-motion"));
         MySharpApp.Run(workspace.Build, new WindowOptions
         {
             Chrome = customChrome ? WindowChrome.Custom : WindowChrome.System,
@@ -21,10 +23,11 @@ internal static class Program
     }
 }
 
-public sealed partial class Workspace(string initialPage = "overview", bool customChrome = false, bool dark = false) : IDisposable
+public sealed partial class Workspace(string initialPage = "overview", bool customChrome = false, bool dark = false, string? gameSavePath = null, bool reducedMotion = false) : IDisposable
 {
     private readonly State<int> sharedClicks = State.Create(0);
-    public void Dispose() => sharedClicks.Dispose();
+    public void Dispose() { sharedClicks.Dispose(); translations.Dispose(); }
+    private readonly I18n translations = new(new System.Resources.ResourceManager("MySharp.examples.Workspace.Localization.Strings", typeof(Workspace).Assembly), System.Globalization.CultureInfo.GetCultureInfo("en-US"));
 
     private string Ink => dark ? "#F4F4F5" : "#18181B";
     private string Muted => dark ? "#A1A1AA" : "#71717A";
@@ -34,7 +37,7 @@ public sealed partial class Workspace(string initialPage = "overview", bool cust
     private string Surface => dark ? "#222225" : "#F7F7F8";
     private string Selection => dark ? "#253552" : "#EAF0FF";
     private string Error => dark ? "#F87171" : "#A63838";
-    private string page = initialPage is "tasks" or "settings" or "lab" or "controls" ? initialPage : "overview";
+    private string page = initialPage is "tasks" or "settings" or "lab" or "controls" or "2048" or "pulse" ? initialPage : "overview";
     private string search = "", draft = "", filter = "All";
     private string displayName = "Alex Chen", workspaceName = "Personal studio", savedMessage = "";
     private bool showActivity = true, compact = false;
@@ -52,6 +55,10 @@ public sealed partial class Workspace(string initialPage = "overview", bool cust
     [Component]
     public void Build(UiContext cx)
     {
+        cx.UseI18n(translations);
+        var leavePulse = cx.State(false);
+        if (leavePulse.Value) { page = "overview"; leavePulse.Value = false; }
+        if (page == "pulse") { PulsePage(cx, () => leavePulse.Value = true); return; }
         if (!customChrome) { Shell(cx); return; }
         Ui.Grid(cx, "*").Rows("44,*").Fill().Children(() =>
         {
@@ -78,11 +85,13 @@ public sealed partial class Workspace(string initialPage = "overview", bool cust
                         Ui.Text(cx, "MySharp").FontSize(23).Bold().TextColor(Ink);
                         Ui.Text(cx, workspaceName).Wrap().FontSize(12).TextColor(Muted);
                         Ui.Space(cx, 28);
-                        cx.Scope(() => Navigation(cx, "overview", "Overview", Icons.Home));
-                        cx.Scope(() => Navigation(cx, "tasks", "Tasks", Icons.Tasks));
-                        cx.Scope(() => Navigation(cx, "settings", "Settings", Icons.Settings));
-                        cx.Scope(() => Navigation(cx, "lab", "State & tasks", Icons.Activity));
-                        cx.Scope(() => Navigation(cx, "controls", "Components", Icons.Components));
+                        cx.Scope(() => Navigation(cx, "overview", translations["nav.overview"], Icons.Home));
+                        cx.Scope(() => Navigation(cx, "tasks", translations["nav.tasks"], Icons.Tasks));
+                        cx.Scope(() => Navigation(cx, "settings", translations["nav.settings"], Icons.Settings));
+                        cx.Scope(() => Navigation(cx, "lab", translations["nav.lab"], Icons.Activity));
+                        cx.Scope(() => Navigation(cx, "controls", translations["nav.controls"], Icons.Components));
+                        cx.Scope(() => Navigation(cx, "2048", "2048", Lucide.Avalonia.LucideIconKind.Gamepad2));
+                        cx.Scope(() => Navigation(cx, "pulse", "Pulse", Icons.Activity));
                         Ui.Space(cx, 32);
                         Ui.Text(cx, "Workspace").FontSize(12).TextColor(Muted);
                         Ui.Text(cx, "MySharp").FontSize(13).TextColor(Ink).Padding(10);
@@ -96,6 +105,7 @@ public sealed partial class Workspace(string initialPage = "overview", bool cust
                     Ui.Text(cx, "Local workspace · Demo").Wrap().FontSize(12).TextColor(Muted);
                 });
             });
+            if (page == "2048") { cx.Scope(() => GamePage(cx)); return; }
             Ui.Scroll(cx).Fill().Children(() =>
             {
                 Ui.Column(cx).Gap(22).Padding(36, 28).Children(() =>

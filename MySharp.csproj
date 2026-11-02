@@ -4,9 +4,13 @@
     <AssemblyName>MySharp.Workspace</AssemblyName>
     <PackageId>MySharp.Workspace</PackageId>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="examples/Workspace/*.cs" />
+    <EmbeddedResource Include="examples/Workspace/Localization/*.resx" />
+    <Compile Include="examples/Workspace/Game2048/*.cs" />
+    <Compile Include="examples/Workspace/Pulse/*.cs" />
     <ProjectReference Include="src/MySharp.Desktop/MySharp.Desktop.csproj" />
     <ProjectReference
       Include="src/MySharp.HotReload/MySharp.HotReload.csproj"

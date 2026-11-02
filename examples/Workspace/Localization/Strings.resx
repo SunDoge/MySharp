@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <data name="settings.title" xml:space="preserve"><value>Settings</value></data>
+  <data name="settings.subtitle" xml:space="preserve"><value>A few preferences for your local workspace.</value></data>
+  <data name="profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="displayName" xml:space="preserve"><value>Display name</value></data>
+  <data name="workspaceName" xml:space="preserve"><value>Workspace name</value></data>
+  <data name="name.placeholder" xml:space="preserve"><value>Your name</value></data>
+  <data name="profile.hint" xml:space="preserve"><value>Shown in the sidebar. These values are kept for this session only.</value></data>
+  <data name="preferences" xml:space="preserve"><value>Preferences</value></data>
+  <data name="activity" xml:space="preserve"><value>Recent activity</value></data>
+  <data name="activity.hint" xml:space="preserve"><value>Show recent activity on the overview page.</value></data>
+  <data name="compact" xml:space="preserve"><value>Compact task rows</value></data>
+  <data name="compact.hint" xml:space="preserve"><value>Use less vertical space in your task list.</value></data>
+  <data name="save" xml:space="preserve"><value>Save preferences</value></data>
+  <data name="saved" xml:space="preserve"><value>Preferences saved for this session.</value></data>
+  <data name="about" xml:space="preserve"><value>About this demo</value></data>
+  <data name="about.detail" xml:space="preserve"><value>MySharp · C# + Avalonia · Activity section: {0}</value></data>
+  <data name="on" xml:space="preserve"><value>on</value></data>
+  <data name="off" xml:space="preserve"><value>off</value></data>
+  <data name="local.hint" xml:space="preserve"><value>Local sample data. Your changes last until you close the app.</value></data>
+  <data name="language" xml:space="preserve"><value>Language</value></data>
+  <data name="language.hint" xml:space="preserve"><value>Live translation demo: Settings and navigation. Your draft stays intact.</value></data>
+  <data name="process.count.one" xml:space="preserve"><value>{0:N0} process</value></data>
+  <data name="process.count.other" xml:space="preserve"><value>{0:N0} processes</value></data>
+  <data name="nav.overview" xml:space="preserve"><value>Overview</value></data>
+  <data name="nav.tasks" xml:space="preserve"><value>Tasks</value></data>
+  <data name="nav.settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="nav.lab" xml:space="preserve"><value>State &amp; tasks</value></data>
+  <data name="nav.controls" xml:space="preserve"><value>Components</value></data>
+  <data name="format.example" xml:space="preserve"><value>Number: {0:N2} · Date: {1:d}</value></data>
+  <data name="fallback.example" xml:space="preserve"><value>Default-language fallback</value></data>
+</root>

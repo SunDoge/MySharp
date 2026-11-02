@@ -5,8 +5,8 @@ export DOTNET_ROOT="${DOTNET_ROOT:-$HOME/.dotnet}"
 export PATH="$DOTNET_ROOT:$PATH"
 mkdir -p artifacts
 xvfb-run -a -s '-screen 0 1280x900x24 -noreset' bash -c '
-  for page in overview tasks settings lab controls; do
-    dotnet bin/Debug/net10.0/MySharp.Workspace.dll --page="$page" >"artifacts/$page.log" 2>&1 &
+  for page in overview tasks settings lab controls 2048 pulse; do
+    dotnet bin/Debug/net10.0/MySharp.Workspace.dll --page="$page" --no-game-save >"artifacts/$page.log" 2>&1 &
     app_pid=$!
     trap "kill $app_pid 2>/dev/null || true" EXIT
     sleep 3

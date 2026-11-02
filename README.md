@@ -166,21 +166,25 @@ Ui.IconButton(cx, Icons.Trash, "Delete task");
 
 单选分段控件可用 `Ui.Segmented(cx, items, selectedIndex)`，其中 `selectedIndex` 为 `State<int>`；也可传入索引和回调。`Weight(FontWeight.Medium)` 可以表达较轻的小标题层级。
 
+国际化使用 `.resx` + `I18n`；通过 `cx.UseI18n(service)` 订阅语言变化，设置页可切换中英文并保留草稿。[接入说明](docs/I18N.md)。
+
 纯图标按钮要求提供可访问名称，并自动用作 tooltip。完整图标枚举为 `Lucide.Avalonia.LucideIconKind`。[主题与图标说明](docs/THEME.md)。
 
-示例现在有五个页面，可在侧栏切换，状态由应用持有：
+示例现在有七个页面，可在侧栏切换，状态由应用持有：
 
 - **Overview**（`examples/Workspace/Overview.cs`）：项目统计、搜索、空状态和活动记录。
 - **Tasks**（`examples/Workspace/Tasks.cs`）：新增任务、完成/重新打开、状态筛选、清除已完成；任务行按业务 ID Scope 复用。
 - **Settings**（`examples/Workspace/Settings.cs`）：草稿修改后保存，更新侧栏资料、活动区域显示和任务行密度；仅保存在本次会话。
 - **Components**（`examples/Workspace/Controls.cs`）：默认按钮、输入框、下拉框、复选框、单选框、开关、滑块和进度条；支持 `--page=controls --dark`。
 - **State & tasks**（`examples/Workspace/Lab.cs`）：局部/共享 state、原生双向绑定、任务取消/错误与依赖自动预览。
+- **2048**（`examples/Workspace/Game2048.cs`）：键盘、拖拽、合并动画和本地存档；用 `dotnet run -- --page=2048` 打开。[游戏说明](docs/GALLERY-2048.md)。
+- **Pulse**（`examples/Workspace/Pulse.cs`）：彩色点阵监控图、可搜索排序的进程表与检查器，使用假的动态数据；`dotnet run -- --page=pulse`。[演示说明](docs/GALLERY-PULSE.md)。
 
 可以用 `dotnet run -- --page=tasks` 或 `dotnet run -- --page=settings` 直接打开指定页。
 
-`bash scripts/screenshot.sh` 会拍摄全部五个页面和自定义标题栏，截图位于 `artifacts/overview.png`、`artifacts/tasks.png`、`artifacts/settings.png`、`artifacts/lab.png`、`artifacts/controls.png`、`artifacts/controls-dark.png`、`artifacts/custom-chrome.png`；`artifacts/gui.png` 为概览副本。图形桌面用 `dotnet run`，无桌面时脚本使用 Xvfb。
+`bash scripts/screenshot.sh` 会拍摄全部七个页面和自定义标题栏，截图位于 `artifacts/overview.png`、`artifacts/tasks.png`、`artifacts/settings.png`、`artifacts/lab.png`、`artifacts/controls.png`、`artifacts/controls-dark.png`、`artifacts/2048.png`、`artifacts/pulse.png`、`artifacts/custom-chrome.png`；`artifacts/gui.png` 为概览副本。图形桌面用 `dotnet run`，无桌面时脚本使用 Xvfb。
 
-当前测试覆盖自动身份/数值 key 域、16 字节句柄/代数回绕/GC、保留节点/焦点/属性通知、state/task race 与生命周期、原生控件/事件、窗口/模态/closing、布局附加属性和示例页面。当前框架行为测试为 82 项。运行脚本生成的完整日志位于本地 `artifacts/`，不提交构建产物；可运行 `scripts/` 中的脚本生成测量结果，能力矩阵列出尚未验证部分。
+当前测试覆盖自动身份/数值 key 域、16 字节句柄/代数回绕/GC、保留节点/焦点/属性通知、state/task race 与生命周期、原生控件/事件、窗口/模态/closing、布局附加属性和示例页面。当前框架行为测试为 102 项。运行脚本生成的完整日志位于本地 `artifacts/`，不提交构建产物；可运行 `scripts/` 中的脚本生成测量结果，能力矩阵列出尚未验证部分。
 
 ## 紧凑 formatter
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <data name="settings.title" xml:space="preserve"><value>设置</value></data>
+  <data name="settings.subtitle" xml:space="preserve"><value>管理本地工作区的偏好设置。</value></data>
+  <data name="profile" xml:space="preserve"><value>个人资料</value></data>
+  <data name="displayName" xml:space="preserve"><value>显示名称</value></data>
+  <data name="workspaceName" xml:space="preserve"><value>工作区名称</value></data>
+  <data name="name.placeholder" xml:space="preserve"><value>你的名字</value></data>
+  <data name="profile.hint" xml:space="preserve"><value>显示在侧栏中；仅保留在本次会话。</value></data>
+  <data name="preferences" xml:space="preserve"><value>偏好设置</value></data>
+  <data name="activity" xml:space="preserve"><value>最近活动</value></data>
+  <data name="activity.hint" xml:space="preserve"><value>在概览页显示最近活动。</value></data>
+  <data name="compact" xml:space="preserve"><value>紧凑任务行</value></data>
+  <data name="compact.hint" xml:space="preserve"><value>减小任务列表的行间距。</value></data>
+  <data name="save" xml:space="preserve"><value>保存设置</value></data>
+  <data name="saved" xml:space="preserve"><value>设置已保存到本次会话。</value></data>
+  <data name="about" xml:space="preserve"><value>关于此示例</value></data>
+  <data name="about.detail" xml:space="preserve"><value>MySharp · C# + Avalonia · 活动区域：{0}</value></data>
+  <data name="on" xml:space="preserve"><value>开启</value></data>
+  <data name="off" xml:space="preserve"><value>关闭</value></data>
+  <data name="local.hint" xml:space="preserve"><value>本地演示数据；关闭应用后不会保留修改。</value></data>
+  <data name="language" xml:space="preserve"><value>语言</value></data>
+  <data name="language.hint" xml:space="preserve"><value>实时翻译示例：设置与导航；切换语言保留草稿。</value></data>
+  <data name="process.count.one" xml:space="preserve"><value>{0:N0} 个进程</value></data>
+  <data name="process.count.other" xml:space="preserve"><value>{0:N0} 个进程</value></data>
+  <data name="nav.overview" xml:space="preserve"><value>概览</value></data>
+  <data name="nav.tasks" xml:space="preserve"><value>任务</value></data>
+  <data name="nav.settings" xml:space="preserve"><value>设置</value></data>
+  <data name="nav.lab" xml:space="preserve"><value>状态与任务</value></data>
+  <data name="nav.controls" xml:space="preserve"><value>组件</value></data>
+  <data name="format.example" xml:space="preserve"><value>数字：{0:N2} · 日期：{1:d}</value></data>
+</root>

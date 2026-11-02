@@ -1118,6 +1118,9 @@ passed += IconTests.Run();
 passed += SegmentedTests.Run();
 passed += ExpanderTests.Run();
 passed += CollectionTests.Run();
+passed += Game2048Tests.Run();
+passed += PulseTests.Run();
+passed += I18nTests.Run();
 passed += HotReloadTests.Run();
 Console.WriteLine($"{passed} tests passed.");
 
